@@ -1,0 +1,44 @@
+import pandas as pd
+import numpy as np
+from sklearn.model_selection import train_test_split
+
+data=pd.read_csv("diabetes.csv")
+
+data.head()
+
+//
+
+y=data.Outcome
+x=data.drop('Outcome',axis=1)
+
+
+x_train,x_test,y_train,y_test=train_test_split(x,y,test_size=0.2)
+x_train.head()
+
+
+//
+
+from sklearn.linear_model import LinearRegression as lm
+model=lm().fit(x_train,y_train) 
+predictions=model.predict(x_test) 
+import matplotlib.pyplot as plt
+plt.scatter(y_test,predictions) 
+plt.xlabel('True values') 
+plt.ylabel('Predictions')
+
+a=int(input("Enter number of pregnancies:")) 
+b=int(input("Enter glucose level:")) 
+c=int(input("Enter Blood Pressure level:")) 
+d=int(input("Enter Skin Thickness:")) 
+e=int(input("Enter Insulin level:")) 
+f=int(input("Enter BMI:")) 
+g=float(input("Enter DPF:"))
+h=int(input("Enter age:")) 
+data=[[a,b,c,d,e,f,g,h]]
+prediction1= model.predict(data) 
+if(prediction1>=0.5): 
+    prediction=1 
+else: 
+    prediction=0 
+print("The probability is:", prediction1[0], "So basically ", prediction)
+
